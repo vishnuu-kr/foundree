@@ -1,0 +1,60 @@
+import React, { useEffect, useState } from "react";
+import { motion, useSpring, useMotionValue } from "framer-motion";
+
+export function CustomCursor() {
+  const [isHovering, setIsHovering] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+
+  const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
+  const cursorXSpring = useSpring(cursorX, springConfig);
+  const cursorYSpring = useSpring(cursorY, springConfig);
+
+  useEffect(() => {
+    const moveCursor = (e: MouseEvent) => {
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
+      if (!isVisible) setIsVisible(true);
+    };
+
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const isInteractive = 
+        target.closest('a') || 
+        target.closest('button') || 
+        target.closest('.group') ||
+        target.tagName.toLowerCase() === 'input' ||
+        target.tagName.toLowerCase() === 'textarea';
+      
+      setIsHovering(!!isInteractive);
+    };
+
+    window.addEventListener("mousemove", moveCursor);
+    window.addEventListener("mouseover", handleMouseOver);
+
+    return () => {
+      window.removeEventListener("mousemove", moveCursor);
+      window.removeEventListener("mouseover", handleMouseOver);
+    };
+  }, [cursorX, cursorY, isVisible]);
+
+  if (!isVisible) return null;
+
+  return (
+    <motion.div
+      style={{
+        translateX: cursorXSpring,
+        translateY: cursorYSpring,
+        left: -16,
+        top: -16,
+      }}
+      animate={{
+        scale: isHovering ? 2.5 : 1,
+      }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="fixed w-8 h-8 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
+    />
+  );
+}

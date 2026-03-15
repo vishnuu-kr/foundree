@@ -1,0 +1,195 @@
+﻿import { motion } from "framer-motion";
+import { ArrowUpRight, MessageSquare, Repeat2, Heart, Share, BarChart2 } from "lucide-react";
+
+export function BlogSection() {
+  return (
+    <section id="insights" className="relative py-32 px-6 md:px-12 bg-black">
+      <div className="max-w-6xl mx-auto">
+        
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row md:items-end justify-between mb-16"
+        >
+          <div>
+            <p className="text-xs font-mono uppercase tracking-widest text-white/40 mb-6">
+              INSIGHTS
+            </p>
+            <h2 className="text-5xl md:text-6xl font-sans font-medium text-white tracking-tight flex flex-wrap gap-x-2">
+              Thoughts, <span className="font-serif italic text-white/70">unfiltered.</span>
+            </h2>
+          </div>
+          <a
+            href="#"
+            className="flex items-center gap-2 text-sm font-sans text-white/50 hover:text-white transition-colors mt-6 md:mt-0"
+          >
+            Follow @foundree_dev <ArrowUpRight className="w-4 h-4" />
+          </a>
+        </motion.div>
+
+        {/* The Feed Container */}
+        <div className="max-w-[600px] mx-auto mt-16 flex flex-col gap-6">
+          
+          {/* Post 1 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 transition-colors hover:bg-white/[0.04] cursor-pointer group shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
+          >
+            {/* Author Block */}
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/10 shrink-0"></div>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-base font-sans font-medium text-white flex items-center gap-1">
+                  Foundree
+                  <svg className="w-4 h-4 text-white/80" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M10.95 21.05a1.5 1.5 0 01-1.06-.44l-4.5-4.5a1.5 1.5 0 012.12-2.12l3.44 3.44 7.44-7.44a1.5 1.5 0 112.12 2.12l-8.5 8.5a1.5 1.5 0 01-1.06.44z" />
+                  </svg>
+                </span>
+                <span className="text-sm font-sans text-white/40">
+                  @foundree_dev · Mar 15
+                </span>
+              </div>
+            </div>
+
+            {/* Post Content */}
+            <div className="font-sans text-[15px] leading-relaxed text-white/80 whitespace-pre-wrap">
+              <p className="font-medium text-white mb-2">Why We Bet Everything on MCP Architecture</p>
+              The Model Context Protocol is quietly becoming the backbone of agentic AI. Here's why we went all-in early. <span className="text-white/40">#AI #Engineering</span>
+            </div>
+
+            {/* Engagement Bar */}
+            <div className="flex items-center justify-between mt-6 max-w-md pr-10">
+              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
+                <MessageSquare className="w-4 h-4" /> 12
+              </button>
+              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-emerald-400 transition-colors">
+                <Repeat2 className="w-4 h-4" /> 4
+              </button>
+              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-rose-400 transition-colors">
+                <Heart className="w-4 h-4" /> 48
+              </button>
+              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-blue-400 transition-colors">
+                <BarChart2 className="w-4 h-4" /> 1.2k
+              </button>
+              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
+                <Share className="w-4 h-4" />
+              </button>
+            </div>
+          </motion.div>
+
+          {/* Post 2 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 transition-colors hover:bg-white/[0.04] cursor-pointer group shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/10 shrink-0"></div>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-base font-sans font-medium text-white flex items-center gap-1">
+                  Foundree
+                  <svg className="w-4 h-4 text-white/80" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M10.95 21.05a1.5 1.5 0 01-1.06-.44l-4.5-4.5a1.5 1.5 0 012.12-2.12l3.44 3.44 7.44-7.44a1.5 1.5 0 112.12 2.12l-8.5 8.5a1.5 1.5 0 01-1.06.44z" />
+                  </svg>
+                </span>
+                <span className="text-sm font-sans text-white/40">
+                  @foundree_dev · Feb 28
+                </span>
+              </div>
+            </div>
+
+            <div className="font-sans text-[15px] leading-relaxed text-white/80 whitespace-pre-wrap">
+              <p className="font-medium text-white mb-2">Building GitForge: Giving AI Models Real GitHub Context</p>
+              How we built an MCP server that feeds structured, high-quality repository data directly into LLM conversations. <span className="text-blue-400">#OpenSource</span>
+            </div>
+
+            {/* Rich Media Card */}
+            <div className="mt-4 border border-white/10 rounded-xl overflow-hidden bg-black/50 hover:bg-white/5 transition-colors group/link">
+              <div className="h-32 bg-gradient-to-br from-slate-800 to-slate-900 relative">
+                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.1)_0%,transparent_100%)]"></div>
+              </div>
+              <div className="p-3 border-t border-white/10 flex justify-between items-center">
+                <span className="text-sm text-white/80 group-hover/link:text-white transition-colors font-mono">github.com/foundree/gitforge</span>
+                <ArrowUpRight className="w-4 h-4 text-white/40" />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between mt-6 max-w-md pr-10">
+              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
+                <MessageSquare className="w-4 h-4" /> 34
+              </button>
+              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-emerald-400 transition-colors">
+                <Repeat2 className="w-4 h-4" /> 18
+              </button>
+              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-rose-400 transition-colors">
+                <Heart className="w-4 h-4" /> 215
+              </button>
+              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-blue-400 transition-colors">
+                <BarChart2 className="w-4 h-4" /> 8.4k
+              </button>
+              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
+                <Share className="w-4 h-4" />
+              </button>
+            </div>
+          </motion.div>
+
+          {/* Post 3 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 transition-colors hover:bg-white/[0.04] cursor-pointer group shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/10 shrink-0"></div>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-base font-sans font-medium text-white flex items-center gap-1">
+                  Foundree
+                  <svg className="w-4 h-4 text-white/80" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M10.95 21.05a1.5 1.5 0 01-1.06-.44l-4.5-4.5a1.5 1.5 0 012.12-2.12l3.44 3.44 7.44-7.44a1.5 1.5 0 112.12 2.12l-8.5 8.5a1.5 1.5 0 01-1.06.44z" />
+                  </svg>
+                </span>
+                <span className="text-sm font-sans text-white/40">
+                  @foundree_dev · Jan 12
+                </span>
+              </div>
+            </div>
+
+            <div className="font-sans text-[15px] leading-relaxed text-white/80 whitespace-pre-wrap">
+              <p className="font-medium text-white mb-2">The Case for Dark-First Design Systems</p>
+              Why starting with dark mode isn't just aesthetic — it's a better foundation for accessible, layered interfaces.
+            </div>
+
+            <div className="flex items-center justify-between mt-6 max-w-md pr-10">
+              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
+                <MessageSquare className="w-4 h-4" /> 8
+              </button>
+              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-emerald-400 transition-colors">
+                <Repeat2 className="w-4 h-4" /> 2
+              </button>
+              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-rose-400 transition-colors">
+                <Heart className="w-4 h-4" /> 64
+              </button>
+              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-blue-400 transition-colors">
+                <BarChart2 className="w-4 h-4" /> 3.1k
+              </button>
+              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
+                <Share className="w-4 h-4" />
+              </button>
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
