@@ -7,13 +7,18 @@ import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import { CustomCursor } from "@/components/CustomCursor";
 
+import { TerminalModal } from "@/components/TerminalModal";
+import { VibeBackground } from "@/components/VibeBackground";
+
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <div className="noise-overlay" />
+      <VibeBackground />
       <CustomCursor />
+      <TerminalModal />
       <Toaster />
       <Sonner />
       <BrowserRouter>

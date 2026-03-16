@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useInView, animate } from "framer-motion";
 
 const stats = [
@@ -32,7 +32,7 @@ function AnimatedCounter({ value }: { value: number }) {
 
 export function StatsSection() {
   return (
-    <section className="w-full relative bg-black">
+    <section className="w-full relative">
       <div className="max-w-6xl mx-auto px-6 py-24">
         {/* The Glass Pill Container */}
         <div className="w-full bg-white/[0.02] backdrop-blur-2xl border border-white/[0.08] rounded-[2rem] p-8 md:p-12 grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/10 relative overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]">

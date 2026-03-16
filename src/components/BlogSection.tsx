@@ -1,9 +1,16 @@
-﻿import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowUpRight, MessageSquare, Repeat2, Heart, Share, BarChart2 } from "lucide-react";
+import { toast } from "sonner";
 
 export function BlogSection() {
+  const handleInteraction = (type: string) => {
+    toast.info(`${type} functionality coming soon.`, {
+      description: "We're currently scaling our backend protocols.",
+    });
+  };
+
   return (
-    <section id="insights" className="relative py-32 px-6 md:px-12 bg-black">
+    <section id="insights" className="relative py-32 px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
         
         {/* Section Header */}
@@ -23,7 +30,9 @@ export function BlogSection() {
             </h2>
           </div>
           <a
-            href="#"
+            href="https://x.com/foundree_dev"
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 text-sm font-sans text-white/50 hover:text-white transition-colors mt-6 md:mt-0"
           >
             Follow @foundree_dev <ArrowUpRight className="w-4 h-4" />
@@ -43,7 +52,9 @@ export function BlogSection() {
           >
             {/* Author Block */}
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/10 shrink-0"></div>
+              <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 shrink-0 overflow-hidden p-2 flex items-center justify-center">
+                <img src="/favicon.svg" alt="Foundree" className="w-full h-full object-contain opacity-100" />
+              </div>
               <div className="flex items-baseline gap-1.5">
                 <span className="text-base font-sans font-medium text-white flex items-center gap-1">
                   Foundree
@@ -65,19 +76,19 @@ export function BlogSection() {
 
             {/* Engagement Bar */}
             <div className="flex items-center justify-between mt-6 max-w-md pr-10">
-              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
+              <button onClick={() => handleInteraction("Reply")} className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
                 <MessageSquare className="w-4 h-4" /> 12
               </button>
-              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-emerald-400 transition-colors">
+              <button onClick={() => handleInteraction("Retweet")} className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-emerald-400 transition-colors">
                 <Repeat2 className="w-4 h-4" /> 4
               </button>
-              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-rose-400 transition-colors">
+              <button onClick={() => handleInteraction("Like")} className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-rose-400 transition-colors">
                 <Heart className="w-4 h-4" /> 48
               </button>
-              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-blue-400 transition-colors">
+              <button onClick={() => handleInteraction("Stats")} className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-blue-400 transition-colors">
                 <BarChart2 className="w-4 h-4" /> 1.2k
               </button>
-              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
+              <button onClick={() => handleInteraction("Share")} className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
                 <Share className="w-4 h-4" />
               </button>
             </div>
@@ -92,7 +103,9 @@ export function BlogSection() {
             className="bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 transition-colors hover:bg-white/[0.04] cursor-pointer group shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/10 shrink-0"></div>
+              <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 shrink-0 overflow-hidden p-2 flex items-center justify-center">
+                <img src="/favicon.svg" alt="Foundree" className="w-full h-full object-contain opacity-100" />
+              </div>
               <div className="flex items-baseline gap-1.5">
                 <span className="text-base font-sans font-medium text-white flex items-center gap-1">
                   Foundree
@@ -112,7 +125,7 @@ export function BlogSection() {
             </div>
 
             {/* Rich Media Card */}
-            <div className="mt-4 border border-white/10 rounded-xl overflow-hidden bg-black/50 hover:bg-white/5 transition-colors group/link">
+            <a href="https://github.com/foundree/gitforge" target="_blank" rel="noopener noreferrer" className="block mt-4 border border-white/10 rounded-xl overflow-hidden bg-black/50 hover:bg-white/5 transition-colors group/link">
               <div className="h-32 bg-gradient-to-br from-slate-800 to-slate-900 relative">
                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.1)_0%,transparent_100%)]"></div>
               </div>
@@ -120,22 +133,22 @@ export function BlogSection() {
                 <span className="text-sm text-white/80 group-hover/link:text-white transition-colors font-mono">github.com/foundree/gitforge</span>
                 <ArrowUpRight className="w-4 h-4 text-white/40" />
               </div>
-            </div>
+            </a>
 
             <div className="flex items-center justify-between mt-6 max-w-md pr-10">
-              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
+              <button onClick={() => handleInteraction("Reply")} className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
                 <MessageSquare className="w-4 h-4" /> 34
               </button>
-              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-emerald-400 transition-colors">
+              <button onClick={() => handleInteraction("Retweet")} className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-emerald-400 transition-colors">
                 <Repeat2 className="w-4 h-4" /> 18
               </button>
-              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-rose-400 transition-colors">
+              <button onClick={() => handleInteraction("Like")} className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-rose-400 transition-colors">
                 <Heart className="w-4 h-4" /> 215
               </button>
-              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-blue-400 transition-colors">
+              <button onClick={() => handleInteraction("Stats")} className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-blue-400 transition-colors">
                 <BarChart2 className="w-4 h-4" /> 8.4k
               </button>
-              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
+              <button onClick={() => handleInteraction("Share")} className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
                 <Share className="w-4 h-4" />
               </button>
             </div>
@@ -150,7 +163,9 @@ export function BlogSection() {
             className="bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 transition-colors hover:bg-white/[0.04] cursor-pointer group shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
           >
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/10 shrink-0"></div>
+              <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 shrink-0 overflow-hidden p-2 flex items-center justify-center">
+                <img src="/favicon.svg" alt="Foundree" className="w-full h-full object-contain opacity-100" />
+              </div>
               <div className="flex items-baseline gap-1.5">
                 <span className="text-base font-sans font-medium text-white flex items-center gap-1">
                   Foundree
@@ -166,23 +181,23 @@ export function BlogSection() {
 
             <div className="font-sans text-[15px] leading-relaxed text-white/80 whitespace-pre-wrap">
               <p className="font-medium text-white mb-2">The Case for Dark-First Design Systems</p>
-              Why starting with dark mode isn't just aesthetic — it's a better foundation for accessible, layered interfaces.
+              Why starting with dark mode isn't just aesthetic, it's a better foundation for accessible, layered interfaces.
             </div>
 
             <div className="flex items-center justify-between mt-6 max-w-md pr-10">
-              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
+              <button onClick={() => handleInteraction("Reply")} className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
                 <MessageSquare className="w-4 h-4" /> 8
               </button>
-              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-emerald-400 transition-colors">
+              <button onClick={() => handleInteraction("Retweet")} className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-emerald-400 transition-colors">
                 <Repeat2 className="w-4 h-4" /> 2
               </button>
-              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-rose-400 transition-colors">
+              <button onClick={() => handleInteraction("Like")} className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-rose-400 transition-colors">
                 <Heart className="w-4 h-4" /> 64
               </button>
-              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-blue-400 transition-colors">
+              <button onClick={() => handleInteraction("Stats")} className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-blue-400 transition-colors">
                 <BarChart2 className="w-4 h-4" /> 3.1k
               </button>
-              <button className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
+              <button onClick={() => handleInteraction("Share")} className="flex items-center gap-2 text-white/30 text-xs font-sans group/btn hover:text-white transition-colors">
                 <Share className="w-4 h-4" />
               </button>
             </div>

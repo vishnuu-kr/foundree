@@ -1,4 +1,4 @@
-﻿import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 
@@ -8,6 +8,7 @@ interface ProjectCardProps {
   description: string;
   tags: string[];
   colSpan?: boolean;
+  href?: string;
 }
 
 const cardVariants = {
@@ -20,8 +21,8 @@ const cardVariants = {
   },
 };
 
-export function ProjectCard({ id, title, description, tags, colSpan = false }: ProjectCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
+export function ProjectCard({ id, title, description, tags, colSpan = false, href }: ProjectCardProps) {
+  const cardRef = useRef<HTMLAnchorElement>(null);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -32,7 +33,7 @@ export function ProjectCard({ id, title, description, tags, colSpan = false }: P
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["5deg", "-5deg"]);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-5deg", "5deg"]);
 
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const width = rect.width;
@@ -136,7 +137,10 @@ export function ProjectCard({ id, title, description, tags, colSpan = false }: P
   };
 
   return (
-    <motion.div
+    <motion.a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
       ref={cardRef}
       variants={cardVariants}
       onMouseMove={handleMouseMove}
@@ -183,6 +187,6 @@ export function ProjectCard({ id, title, description, tags, colSpan = false }: P
       >
         <ArrowUpRight className="w-5 h-5" />
       </div>
-    </motion.div>
+    </motion.a>
   );
 }

@@ -1,4 +1,4 @@
-﻿import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Github } from "lucide-react";
 
 export function TeamFooter() {
@@ -28,14 +28,11 @@ export function TeamFooter() {
             <span className="text-sm text-white/60">Compiling...</span>
           </div>
           <div className="flex items-center gap-6">
-            <a href="https://x.com/foundree" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+            <a href="https://x.com/foundree_dev" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
               X
             </a>
             <a href="https://github.com/foundree" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
               <Github className="w-3.5 h-3.5" />
-            </a>
-            <a href="https://linkedin.com/company/foundree" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-              LinkedIn
             </a>
           </div>
         </div>

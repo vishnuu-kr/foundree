@@ -1,4 +1,4 @@
-﻿import { Navbar } from "@/components/Navbar";
+import { Navbar } from "@/components/Navbar";
 
 import { HeroSectionV2 } from "@/components/HeroSectionV2";
 import { PhilosophySection } from "@/components/PhilosophySection";
@@ -14,7 +14,7 @@ import { TeamFooter } from "@/components/TeamFooter";
 
 const Index = () => {
   return (
-    <div className="bg-background min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       <Navbar />
 
       <HeroSectionV2 />

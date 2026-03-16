@@ -1,4 +1,4 @@
-﻿import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 export function ProcessSection() {
   const steps = [
@@ -9,7 +9,7 @@ export function ProcessSection() {
   ];
 
   return (
-    <section className="relative py-32 px-6 md:px-12 bg-black">
+    <section className="relative py-32 px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
         
         {/* Header */}

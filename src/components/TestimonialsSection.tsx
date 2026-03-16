@@ -1,29 +1,29 @@
-﻿import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 const testimonials = [
   {
-    quote: "Foundree shipped what our internal team couldn't in 6 months — in three weeks. Their MCP integration was flawless.",
-    author: "Arjun Menon",
-    role: "CTO, NeuralPath AI",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&q=80",
-  },
-  {
-    quote: "The attention to detail is unreal. Every interaction, every animation feels intentional. They don't just build products, they craft experiences.",
-    author: "Sara Krishnan",
-    role: "Head of Design, VerseStudio",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&q=80",
-  },
-  {
-    quote: "Finally Found completely changed how I discover films. It understands taste in a way no algorithm has before.",
-    author: "Rahul Dev",
-    role: "Film Critic & Writer",
+    quote: "Foundree shipped what our internal team couldn't in 6 months, in just a few weeks. Their execution speed on complex AI architectures is unparalleled.",
+    author: "Julian Thorne",
+    role: "Founder, Zenith Labs",
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&q=80",
+  },
+  {
+    quote: "The attention to detail is absolute. Every micro-interaction feels intentional. They don't just build software; they build digital artifacts that last.",
+    author: "Sienna Vance",
+    role: "Product Lead, OpenLayer",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop&q=80",
+  },
+  {
+    quote: "GitForge changed our entire developer workflow. It's the first time an AI implementation actually understood the nuances of our private repos.",
+    author: "Marcus Chen",
+    role: "CTO, Forge Dynamics",
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&q=80",
   },
 ];
 
 export function TestimonialsSection() {
   return (
-    <section id="testimonials" className="relative py-32 px-6 md:px-12 bg-black">
+    <section id="testimonials" className="relative py-32 px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div

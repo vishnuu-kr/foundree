@@ -15,15 +15,15 @@ export function Navbar() {
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       className="fixed top-6 left-1/2 -translate-x-1/2 z-50"
     >
-      <div className="bg-white/[0.03] backdrop-blur-md border border-white/[0.08] rounded-full px-6 py-3 flex items-center gap-8 shadow-2xl">
-        <span className="text-sm font-semibold tracking-tight text-white">Foundree</span>
+      <div className="bg-white/[0.03] backdrop-blur-md border border-white/[0.08] rounded-full px-4 md:px-6 py-2.5 md:py-3 flex items-center gap-4 md:gap-8 shadow-2xl">
+        <span className="text-xs md:text-sm font-semibold tracking-tight text-white shrink-0">Foundree</span>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6 lg:gap-8">
           {links.map((link) => (
             <Magnetic key={link.label}>
               <a
                 href={link.href}
-                className="text-xs text-white/60 hover:text-white transition-colors px-2 py-1"
+                className="text-xs text-white/50 hover:text-white transition-colors px-2 py-1"
               >
                 {link.label}
               </a>
@@ -33,10 +33,11 @@ export function Navbar() {
 
         <Magnetic>
           <a
-            href="mailto:hello@foundree.dev"
-            className="bg-white text-black px-4 py-1.5 rounded-full text-xs font-medium hover:bg-white/90 transition-colors inline-block"
+            href="mailto:social@foundree.dev"
+            className="bg-white text-black px-3 md:px-4 py-1.5 rounded-full text-[10px] md:text-xs font-medium hover:bg-white/90 transition-colors inline-block whitespace-nowrap"
           >
-            hello@foundree.dev
+            <span className="hidden sm:inline">hello@foundree.dev</span>
+            <span className="sm:hidden">Protocol</span>
           </a>
         </Magnetic>
       </div>

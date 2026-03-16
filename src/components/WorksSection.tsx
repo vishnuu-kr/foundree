@@ -8,36 +8,41 @@ const projects = [
     description: "Hyper-personalized movie recommendations powered by AI taste-mapping.",
     tags: ["React", "TypeScript", "AI"],
     colSpan: true,
+    href: "https://github.com/foundree/finally-found"
   },
   {
     id: "cinelore",
     title: "Cinelore®",
     description: "A platform for film enthusiasts to dissect theories and hidden meanings.",
     tags: ["Community", "Platform"],
+    href: "https://github.com/foundree/cinelore"
   },
   {
     id: "gitforge",
     title: "GitForge®",
     description: "MCP server feeding high-quality GitHub context into AI models.",
     tags: ["Python", "MCP", "AI"],
+    href: "https://github.com/foundree/gitforge"
   },
   {
     id: "foliosync",
     title: "FolioSync®",
     description: "Auto-updating developer portfolios driven by GitHub activity.",
     tags: ["Automation", "AI"],
+    href: "https://github.com/foundree/foliosync"
   },
   {
     id: "allopen",
     title: "Allopen®",
     description: "An omni-format application designed to smoothly open and inspect absolutely any file type.",
     tags: ["Desktop", "Utility"],
+    href: "https://github.com/foundree/allopen"
   }
 ];
 
 export function WorksSection() {
   return (
-    <section id="works" className="relative py-24 px-6 md:px-12 bg-background">
+    <section id="works" className="relative py-24 px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-wrap items-baseline gap-2 mb-12">
           <span className="font-serif italic text-white/50 text-4xl md:text-5xl">Crafted by</span>

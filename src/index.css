@@ -5,6 +5,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 @layer base {
   :root {
     --background: 0 0% 0%;
@@ -157,5 +161,18 @@
     font-family: 'Instrument Serif', serif;
     font-style: italic;
     letter-spacing: -0.02em;
+  }
+
+  .rotate-animate {
+    animation: rotate 10s linear infinite;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 }

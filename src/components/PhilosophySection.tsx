@@ -2,7 +2,7 @@ import { ScrollRevealText } from "./ScrollRevealText";
 
 export function PhilosophySection() {
   return (
-    <section id="philosophy" className="py-32 px-6 md:px-12 bg-background relative overflow-hidden">
+    <section id="philosophy" className="pt-12 pb-24 px-6 md:px-12 relative overflow-hidden">
       <div className="max-w-5xl mx-auto relative z-10">
         <div className="font-serif-italic text-4xl md:text-6xl leading-tight text-center relative">
           <div className="shimmer inline-block w-full">
@@ -10,10 +10,10 @@ export function PhilosophySection() {
           </div>
         </div>
         
-        <div className="mt-16 flex justify-center">
-          <div className="handwritten text-3xl md:text-5xl opacity-40 -rotate-3 select-none pointer-events-none">
-            Foundree.
-          </div>
+        <div className="mt-20 flex justify-center">
+          <span className="text-xl md:text-2xl font-semibold tracking-tight text-white select-none">
+            Foundree
+          </span>
         </div>
       </div>
       
