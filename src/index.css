@@ -6,7 +6,7 @@
 @tailwind utilities;
 
 html {
-  scroll-behavior: smooth;
+  /* Lenis handles scrolling */
 }
 
 @layer base {
@@ -65,7 +65,7 @@ html {
   }
 
   html {
-    scroll-behavior: smooth;
+    /* Lenis handles scrolling */
   }
 
   * {

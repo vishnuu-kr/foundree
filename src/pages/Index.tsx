@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/Navbar";
+import { ScrollProgress } from "@/components/ScrollProgress";
 
 import { HeroSectionV2 } from "@/components/HeroSectionV2";
 import { PhilosophySection } from "@/components/PhilosophySection";
@@ -15,6 +16,7 @@ import { TeamFooter } from "@/components/TeamFooter";
 const Index = () => {
   return (
     <div className="min-h-screen overflow-x-hidden">
+      <ScrollProgress />
       <Navbar />
 
       <HeroSectionV2 />

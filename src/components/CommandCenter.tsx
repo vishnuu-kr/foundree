@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Github, Music, Clock } from "lucide-react";
+import { Github, Music, Clock, Play, Pause } from "lucide-react";
 
 export function CommandCenter() {
   const [isHovered, setIsHovered] = useState(false);
@@ -22,6 +22,8 @@ export function CommandCenter() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [lastCommit, setLastCommit] = useState<{ message: string; time: string } | null>(null);
   const [spotifyStatus, setSpotifyStatus] = useState<{ song: string; artist: string; albumArt?: string } | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -43,14 +45,42 @@ export function CommandCenter() {
     };
 
     setSpotifyStatus({ 
-      song: "Midnight Focus", 
-      artist: "Foundree Audio",
+      song: "Atmosphere", 
+      artist: "Foundree Radio",
       albumArt: "https://images.unsplash.com/photo-1614149162883-504ce4d13909?w=100&h=100&fit=crop"
     });
 
+    audioRef.current = null;
+
     fetchCommit();
-    return () => clearInterval(timer);
+    return () => {
+      clearInterval(timer);
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
   }, []);
+
+  const togglePlay = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    
+    // Initialize audio on first click to satisfy browser policies
+    if (!audioRef.current) {
+      audioRef.current = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3");
+      audioRef.current.loop = true;
+      audioRef.current.volume = 0.5;
+    }
+
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play().catch(err => {
+        console.error("Audio playback failed:", err);
+      });
+    }
+    setIsPlaying(!isPlaying);
+  };
 
   const formatIST = (date: Date) => {
     return date.toLocaleTimeString("en-US", {
@@ -130,22 +160,47 @@ export function CommandCenter() {
                 <div className="h-8 w-[1px] bg-white/10" />
 
                 {/* 2. Spotify Essentials */}
-                <div className="flex items-center gap-4 flex-1 min-w-0">
+                <button 
+                  onClick={togglePlay}
+                  className="flex items-center gap-4 flex-1 min-w-0 group/music transition-all hover:opacity-100 opacity-90 text-left"
+                >
                   <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 shadow-lg border border-white/5">
-                    <img src={spotifyStatus?.albumArt} className="w-full h-full object-cover grayscale opacity-50" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Music className="w-4 h-4 text-white/40" />
+                    <img src={spotifyStatus?.albumArt} className={`w-full h-full object-cover grayscale transition-all duration-700 ${isPlaying ? 'scale-110 opacity-70' : 'opacity-40'}`} />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover/music:bg-black/40 transition-colors">
+                      {isPlaying ? (
+                        <Pause className="w-5 h-5 text-white animate-pulse" />
+                      ) : (
+                        <Play className="w-5 h-5 text-white/60 translate-x-0.5" />
+                      )}
                     </div>
                   </div>
                   <div className="flex flex-col min-w-0">
-                    <span className="text-[11px] font-semibold text-white/90 truncate uppercase tracking-tight">
-                      {spotifyStatus?.song}
-                    </span>
+                    <div className="flex items-center gap-2">
+                       <span className="text-[11px] font-semibold text-white/90 truncate uppercase tracking-tight">
+                        {spotifyStatus?.song}
+                      </span>
+                      {isPlaying && (
+                        <div className="flex items-end gap-[1px] h-2.5 mb-0.5">
+                          {[1, 2, 3, 4].map((i) => (
+                            <motion.div
+                              key={i}
+                              animate={{ height: ["20%", "100%", "30%", "80%", "20%"] }}
+                              transition={{ 
+                                repeat: Infinity, 
+                                duration: 0.6 + i * 0.1,
+                                ease: "easeInOut"
+                              }}
+                              className="w-[2px] bg-green-500/80 rounded-full"
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </div>
                     <span className="text-[9px] text-white/30 truncate uppercase tracking-widest mt-0.5">
                       {spotifyStatus?.artist}
                     </span>
                   </div>
-                </div>
+                </button>
 
                 {/* 3. Status Point */}
                 <div className="flex-shrink-0">
