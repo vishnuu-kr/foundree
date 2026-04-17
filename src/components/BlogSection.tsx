@@ -125,12 +125,16 @@ export function BlogSection() {
             </div>
 
             {/* Rich Media Card */}
-            <a href="https://github.com/foundree/gitforge" target="_blank" rel="noopener noreferrer" className="block mt-4 border border-white/10 rounded-xl overflow-hidden bg-black/50 hover:bg-white/5 transition-colors group/link">
-              <div className="h-32 bg-gradient-to-br from-slate-800 to-slate-900 relative">
-                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.1)_0%,transparent_100%)]"></div>
+            <a href="https://github.com/foundree/gitforge" target="_blank" rel="noopener noreferrer" className="block mt-4 border border-white/10 rounded-xl overflow-hidden bg-black/50 hover:bg-white/5 transition-colors group/link relative">        
+              <div className="h-48 relative overflow-hidden">
+                 <img 
+                    src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=800&q=80" 
+                    alt="GitHub Context" 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover/link:scale-105"
+                 />
+                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
               </div>
-              <div className="p-3 border-t border-white/10 flex justify-between items-center">
-                <span className="text-sm text-white/80 group-hover/link:text-white transition-colors font-mono">github.com/foundree/gitforge</span>
+              <div className="p-3 border-t border-white/10 flex justify-between items-center absolute bottom-0 left-0 right-0 bg-black/40 backdrop-blur-md">
                 <ArrowUpRight className="w-4 h-4 text-white/40" />
               </div>
             </a>

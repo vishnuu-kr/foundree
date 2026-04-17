@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search } from "lucide-react";
+import { useSfx } from "@/hooks/use-sfx";
 
 const prompts = [
   "Build a high-frequency trading bot in Rust...",
@@ -14,6 +15,7 @@ export function TechStackSection() {
   const [displayedText, setDisplayedText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [typingSpeed, setTypingSpeed] = useState(100);
+  const { playHoverSound, playClickSound } = useSfx();
 
   useEffect(() => {
     const handleTyping = () => {
@@ -121,19 +123,30 @@ export function TechStackSection() {
 
         {/* 5. The Output Row (The Flex) */}
         <div className="px-6 py-4 bg-white/[0.02] flex items-center justify-between">
-          <div className="flex items-center gap-2 font-mono text-sm text-green-400">
+          <div className="flex items-center gap-2 font-mono text-sm text-[#D4FF00]">
             <span className="animate-pulse">●</span>
-            <span>[Status: Initializing Build...]</span>
+            <span className="uppercase text-white/50 tracking-wider text-xs">Status: RUNNING</span>
           </div>
           
-          <div className="flex gap-2">
-            <span className="px-2 py-1 rounded bg-white/10 text-xs font-mono text-white/50 border border-white/5 shadow-inner">
+          <button 
+            onClick={() => {
+              playClickSound();
+              window.location.href = `mailto:hello@foundree.dev?subject=Project Inquiry: ${prompts[currentPromptIndex].replace('...', '')}`;
+            }}
+            onMouseEnter={() => playHoverSound()}
+            className="flex items-center gap-2 cursor-pointer group/cmd transition-transform active:scale-95"
+            title="Execute command"
+          >
+            <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-white/30 mr-2 group-hover/cmd:text-[#D4FF00] transition-colors duration-300">
+              EXECUTE
+            </span>
+            <span className="px-2 py-1 rounded bg-white/10 group-hover/cmd:bg-[#D4FF00]/20 group-hover/cmd:text-[#D4FF00] group-hover/cmd:border-[#D4FF00]/30 text-xs font-mono text-white/50 border border-white/5 shadow-inner transition-all duration-300">
               ⌘
             </span>
-            <span className="px-2 py-1 rounded bg-white/10 text-xs font-mono text-white/50 border border-white/5 shadow-inner">
+            <span className="px-2 py-1 rounded bg-white/10 group-hover/cmd:bg-[#D4FF00]/20 group-hover/cmd:text-[#D4FF00] group-hover/cmd:border-[#D4FF00]/30 text-xs font-mono text-white/50 border border-white/5 shadow-inner transition-all duration-300">
               ↵
             </span>
-          </div>
+          </button>
         </div>
       </motion.div>
     </section>

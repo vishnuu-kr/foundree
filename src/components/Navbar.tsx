@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import Magnetic from "./Magnetic";
+import { useSfx } from "@/hooks/use-sfx";
 
 const links = [
   { label: "Works", href: "#works" },
@@ -8,6 +9,17 @@ const links = [
 ];
 
 export function Navbar() {
+  const { playHoverSound, playClickSound } = useSfx();
+  
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    playClickSound();
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <motion.nav
       initial={{ y: -40, opacity: 0 }}
@@ -23,6 +35,8 @@ export function Navbar() {
             <Magnetic key={link.label}>
               <a
                 href={link.href}
+                onClick={(e) => handleScroll(e, link.href)}
+                onMouseEnter={() => playHoverSound()}
                 className="text-xs text-white/50 hover:text-white transition-colors px-2 py-1"
               >
                 {link.label}
@@ -33,7 +47,9 @@ export function Navbar() {
 
         <Magnetic>
           <a
-            href="mailto:social@foundree.dev"
+            href="mailto:hello@foundree.dev"
+            onMouseEnter={() => playHoverSound()}
+            onClick={() => playClickSound()}
             className="bg-white text-black px-3 md:px-4 py-1.5 rounded-full text-[10px] md:text-xs font-medium hover:bg-white/90 transition-colors inline-block whitespace-nowrap"
           >
             <span className="hidden sm:inline">hello@foundree.dev</span>

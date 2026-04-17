@@ -107,7 +107,7 @@ export function ServicesSection() {
               variants={itemVariants}
               onMouseEnter={() => setHoveredIdx(i)}
               onMouseMove={handleMouseMove}
-              onClick={() => window.location.href = `mailto:social@foundree.dev?subject=Project Inquiry: ${service.title}`}
+              onClick={() => window.location.href = `mailto:hello@foundree.dev?subject=Project Inquiry: ${service.title}`}
               className={`group/item relative flex flex-col md:grid md:grid-cols-12 md:items-center py-10 md:py-14 cursor-pointer transition-all duration-500 hover:bg-white/[0.02] px-6 -mx-6
               ${hoveredIdx !== null && hoveredIdx !== i ? 'opacity-30' : 'opacity-100'} 
               `}

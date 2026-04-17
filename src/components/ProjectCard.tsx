@@ -1,6 +1,8 @@
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { useSfx } from "@/hooks/use-sfx";
+import { ScrambleText } from "./ScrambleText";
 
 interface ProjectCardProps {
   id: string;
@@ -9,6 +11,7 @@ interface ProjectCardProps {
   tags: string[];
   colSpan?: boolean;
   href?: string;
+  status?: string;
 }
 
 const cardVariants = {
@@ -21,8 +24,9 @@ const cardVariants = {
   },
 };
 
-export function ProjectCard({ id, title, description, tags, colSpan = false, href }: ProjectCardProps) {
+export function ProjectCard({ id, title, description, tags, colSpan = false, href, status = "live" }: ProjectCardProps) {
   const cardRef = useRef<HTMLAnchorElement>(null);
+  const { playHoverSound, playClickSound } = useSfx();
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -138,11 +142,15 @@ export function ProjectCard({ id, title, description, tags, colSpan = false, hre
 
   return (
     <motion.a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+      href={status === "development" ? undefined : href}
+      target={status === "development" ? undefined : "_blank"}
+      rel={status === "development" ? undefined : "noopener noreferrer"}
       ref={cardRef}
       variants={cardVariants}
+      onMouseEnter={() => playHoverSound()}
+      onClick={() => {
+        if (status !== "development") playClickSound();
+      }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
@@ -150,9 +158,9 @@ export function ProjectCard({ id, title, description, tags, colSpan = false, hre
         rotateY,
         transformStyle: "preserve-3d",
       }}
-      className={`bg-white/[0.02] backdrop-blur-2xl border border-white/[0.08] rounded-[2rem] overflow-hidden relative group cursor-pointer shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] p-10 flex flex-col justify-between min-h-[360px] md:min-h-[420px] transition-shadow duration-700 hover:shadow-[0_20px_50px_rgba(255,255,255,0.05)] ${
-        colSpan ? "md:col-span-2" : ""
-      }`}
+      className={`bg-white/[0.02] backdrop-blur-2xl border border-white/[0.08] rounded-[2rem] overflow-hidden relative group shadow-[inset_0_1px_1px_rgba(255,255,255,0.15)] p-10 flex flex-col justify-between min-h-[360px] md:min-h-[420px] transition-shadow duration-700 hover:shadow-[0_20px_50px_rgba(255,255,255,0.05)] ${
+        status === "development" ? "cursor-default" : "cursor-pointer"
+      } ${colSpan ? "md:col-span-2" : ""}`}
     >
       <div
         style={{ transform: "translateZ(50px)" }}
@@ -167,7 +175,7 @@ export function ProjectCard({ id, title, description, tags, colSpan = false, hre
             key={tag}
             className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] uppercase tracking-widest font-mono text-white/60"
           >
-             {tag}
+             <ScrambleText text={tag} onHover={true} duration={600} />
           </span>
         ))}
       </div>
@@ -176,16 +184,29 @@ export function ProjectCard({ id, title, description, tags, colSpan = false, hre
         style={{ transform: "translateZ(60px)" }} 
         className="relative z-20 mt-auto flex flex-col pr-8 text-left items-start pointer-events-none"
       >
-        <h3 className="font-sans text-3xl font-medium tracking-tight text-white mb-2">{title}</h3>
+        <h3 className="font-sans text-3xl font-medium tracking-tight text-white mb-2">
+          <ScrambleText text={title} onHover={true} duration={800} />
+        </h3>
         <p className="text-white/50 font-light text-sm max-w-xs">{description}</p>
       </div>
 
-      {/* Sleek Arrow Icon */}
+      {/* Sleek Arrow Icon or Development Badge */}
       <div 
         style={{ transform: "translateZ(80px)" }}
-        className="absolute bottom-8 right-8 md:bottom-10 md:right-10 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/20 backdrop-blur-md opacity-0 -translate-x-4 translate-y-4 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 text-white transition-all duration-500 ease-out z-30"
+        className={`absolute bottom-8 right-8 md:bottom-10 md:right-10 flex items-center justify-center rounded-full bg-white/10 border border-white/20 backdrop-blur-md opacity-0 transition-all duration-500 ease-out z-30 ${
+          status === "development"
+            ? "px-4 py-2 group-hover:opacity-100 text-[10px] font-mono tracking-widest text-white/70 uppercase"
+            : "w-10 h-10 -translate-x-4 translate-y-4 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 text-white"
+        }`}
       >
-        <ArrowUpRight className="w-5 h-5" />
+        {status === "development" ? (
+          <span className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-white/50 animate-pulse" />
+            Forging
+          </span>
+        ) : (
+          <ArrowUpRight className="w-5 h-5" />
+        )}
       </div>
     </motion.a>
   );

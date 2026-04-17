@@ -1,12 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Github, Music, Clock, Play, Pause } from "lucide-react";
+import { useSfx } from "@/hooks/use-sfx";
+import { ScrambleText } from "./ScrambleText";
 
 export function CommandCenter() {
   const [isHovered, setIsHovered] = useState(false);
   const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
+  const { playHoverSound, playClickSound } = useSfx();
 
   const handleMouseEnter = () => {
+    playHoverSound();
     const id = setTimeout(() => {
       setIsHovered(true);
     }, 1000);
@@ -30,24 +34,34 @@ export function CommandCenter() {
     
     const fetchCommit = async () => {
       try {
-        const response = await fetch("https://api.github.com/repos/vishnuu-kr/foundree/commits?per_page=1");
+        const response = await fetch("https://api.github.com/users/vishnuu-kr/events/public");
         const data = await response.json();
-        if (data && data.length > 0) {
-          const commit = data[0];
-          const date = new Date(commit.commit.author.date);
-          const diffInHours = Math.floor((new Date().getTime() - date.getTime()) / (1000 * 60 * 60));
+        const pushEvent = data.find((e: any) => e.type === "PushEvent");
+        
+        if (pushEvent) {
+          const date = new Date(pushEvent.created_at);
+          const diffInMinutes = Math.floor((new Date().getTime() - date.getTime()) / (1000 * 60));
+          const diffInHours = Math.floor(diffInMinutes / 60);
+          
+          let timeString = "JUST NOW";
+          if (diffInHours > 0) {
+            timeString = `${diffInHours}H AGO`;
+          } else if (diffInMinutes > 0) {
+            timeString = `${diffInMinutes}M AGO`;
+          }
+
           setLastCommit({
-            message: commit.commit.message.split('\n')[0],
-            time: diffInHours === 0 ? "JUST NOW" : `${diffInHours}H AGO`
+            message: pushEvent.payload.commits?.[0]?.message?.split('\n')[0] || "Update",
+            time: timeString
           });
         }
       } catch (e) { console.error(e); }
     };
 
     setSpotifyStatus({ 
-      song: "Atmosphere", 
-      artist: "Foundree Radio",
-      albumArt: "https://images.unsplash.com/photo-1614149162883-504ce4d13909?w=100&h=100&fit=crop"
+      song: "Chillsynth FM", 
+      artist: "Nightride Radio",
+      albumArt: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=100&h=100&fit=crop"
     });
 
     audioRef.current = null;
@@ -64,22 +78,27 @@ export function CommandCenter() {
 
   const togglePlay = (e: React.MouseEvent) => {
     e.stopPropagation();
+    playClickSound();
     
     // Initialize audio on first click to satisfy browser policies
     if (!audioRef.current) {
-      audioRef.current = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3");
+      // 24/7 Chillsynth Radio - perfect for coding/hacker aesthetic. High compatibility stream.
+      audioRef.current = new Audio("https://stream.nightride.fm/chillsynth.m4a");
+      audioRef.current.crossOrigin = "anonymous";
       audioRef.current.loop = true;
-      audioRef.current.volume = 0.5;
+      audioRef.current.volume = 0.4;
     }
 
     if (isPlaying) {
       audioRef.current.pause();
+      setIsPlaying(false);
     } else {
+      setIsPlaying(true);
       audioRef.current.play().catch(err => {
         console.error("Audio playback failed:", err);
+        setIsPlaying(false);
       });
     }
-    setIsPlaying(!isPlaying);
   };
 
   const formatIST = (date: Date) => {
@@ -129,9 +148,14 @@ export function CommandCenter() {
                   {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
                 </span>
                 <div className="h-3 w-[1px] bg-white/10" />
-                <span className="text-[10px] font-mono tracking-wider text-white/70 uppercase">
-                  PUSH: <span className="text-white font-bold">{lastCommit?.time || "SYNCING"}</span>
-                </span>
+                <a 
+                  href="https://github.com/vishnuu-kr" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-[10px] font-mono tracking-wider text-white/70 uppercase hover:text-white transition-colors cursor-pointer flex items-center gap-1"
+                >
+                  PUSH: <span className="text-white font-bold"><ScrambleText text={lastCommit?.time || "SYNCING"} onHover={true} /></span>
+                </a>
               </motion.div>
             ) : (
               <motion.div
@@ -149,12 +173,17 @@ export function CommandCenter() {
                       {formatIST(currentTime)}
                     </span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Github className="w-3 h-3 text-white/20" />
-                    <span className="text-[9px] font-mono tracking-[0.15em] text-white/40 uppercase">
-                      {lastCommit?.time || "SYNCING"}
+                  <a 
+                    href="https://github.com/vishnuu-kr" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="flex items-center gap-2 hover:opacity-100 opacity-70 transition-opacity cursor-pointer text-white"
+                  >
+                    <Github className="w-3 h-3" />
+                    <span className="text-[9px] font-mono tracking-[0.15em] uppercase">
+                      <ScrambleText text={lastCommit?.time || "SYNCING"} onHover={true} />
                     </span>
-                  </div>
+                  </a>
                 </div>
 
                 <div className="h-8 w-[1px] bg-white/10" />
@@ -211,6 +240,44 @@ export function CommandCenter() {
           </AnimatePresence>
         </motion.div>
       </motion.div>
+
+      {/* Floating Music Widget Helper */}
+      <AnimatePresence>
+        {isPlaying && !isHovered && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            className="fixed bottom-8 right-8 z-[100] liquid-glass bg-black/60 backdrop-blur-2xl border border-white/10 rounded-full px-5 py-3 flex items-center gap-4 shadow-2xl cursor-pointer hover:bg-white/10 transition-colors"
+            onClick={togglePlay}
+          >
+            <div className="flex items-end gap-[2px] h-3">
+              {[1, 2, 3, 4].map((i) => (
+                <motion.div
+                  key={i}
+                  animate={{ height: ["20%", "100%", "30%", "80%", "20%"] }}
+                  transition={{ 
+                    repeat: Infinity, 
+                    duration: 0.6 + i * 0.1,
+                    ease: "easeInOut"
+                  }}
+                  className="w-[2px] bg-green-500/80 rounded-full"
+                />
+              ))}
+            </div>
+            <div className="flex flex-col max-w-[120px]">
+              <span className="text-[10px] font-semibold text-white/90 uppercase tracking-tight truncate">
+                {spotifyStatus?.song}
+              </span>
+              <span className="text-[8px] font-mono text-white/40 uppercase tracking-widest truncate">
+                {spotifyStatus?.artist}
+              </span>
+            </div>
+            <div className="h-4 w-[1px] bg-white/20 mx-1" />
+            <Pause className="w-3.5 h-3.5 text-white/90" />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

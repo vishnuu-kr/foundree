@@ -4,9 +4,12 @@ import { BlurText } from "./BlurText";
 import { useHlsVideo } from "@/hooks/useHlsVideo";
 import { CommandCenter } from "./CommandCenter";
 import { MagneticButton } from "./MagneticButton";
+import { useSfx } from "@/hooks/use-sfx";
+import { ScrambleText } from "./ScrambleText";
 
 export function HeroSectionV2() {
   const videoRef = useHlsVideo("https://stream.mux.com/9JXDljEVWYwWu01PUkAemafDugK89o01BR6zqJ3aS9u00A.m3u8");
+  const { playHoverSound, playClickSound } = useSfx();
 
   return (
     <section className="relative overflow-visible min-h-[85vh]">
@@ -53,7 +56,7 @@ export function HeroSectionV2() {
           transition={{ delay: 0.8, duration: 0.8 }}
           className="font-body font-light text-white/60 text-lg md:text-xl max-w-xl mt-6 leading-relaxed"
         >
-          We operate on a strict "build what we want" philosophy. A Kerala-based collective of engineers and designers forging AI systems, MCP architecture, and open-source experiments.
+          We operate on a strict "build what we want" philosophy. A collective of engineers and designers forging AI systems, MCP architecture, and open-source experiments.
         </motion.p>
 
         {/* 6. CTA Buttons (The Action Row) */}
@@ -65,7 +68,19 @@ export function HeroSectionV2() {
             className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-10"
         >
           <MagneticButton className="rounded-full overflow-hidden">
-            <a href="#works" className="w-full sm:w-auto px-8 py-3.5 flex items-center justify-center gap-2 text-white font-body group">
+            <a 
+              href="#works" 
+              onMouseEnter={() => playHoverSound()}
+              onClick={(e) => {
+                e.preventDefault();
+                playClickSound();
+                const target = document.querySelector('#works');
+                if (target) {
+                  target.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="w-full sm:w-auto px-8 py-3.5 flex items-center justify-center gap-2 bg-white text-black font-body group"
+            >
               <span>View Selected Works</span>
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
@@ -73,9 +88,11 @@ export function HeroSectionV2() {
 
           <MagneticButton className="rounded-full overflow-hidden bg-transparent border-none shadow-none">
             <a 
-              href="https://github.com/vishnuu-kr/foundree" 
+              href="http://github.com/Foundree" 
               target="_blank" 
               rel="noopener noreferrer" 
+              onMouseEnter={() => playHoverSound()}
+              onClick={() => playClickSound()}
               className="text-white/70 hover:text-white font-body flex items-center gap-4 transition-all px-8 py-3.5 group"
             >
               <span>Explore GitHub</span>
