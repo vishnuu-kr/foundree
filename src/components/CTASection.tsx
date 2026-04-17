@@ -24,21 +24,19 @@ export function CTASection() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <MagneticButton className="rounded-full">
               <a
-                href="mailto:social@foundree.dev"
+                href="mailto:hello@foundree.dev"
                 className="px-8 py-4 text-sm font-medium text-black bg-white rounded-full inline-flex items-center gap-2"
               >
-                Initialize Project <ArrowRight className="w-4 h-4" />
+                Start Building <ArrowRight className="w-4 h-4" />
               </a>
             </MagneticButton>
 
             <MagneticButton className="rounded-full">
               <a
-                href="https://cal.com/foundree"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-4 text-sm font-medium text-white rounded-full inline-flex items-center gap-2 whitespace-nowrap"
+                href="mailto:hello@foundree.dev"
+                className="px-8 py-4 text-sm font-medium text-white rounded-full inline-flex items-center gap-2 whitespace-nowrap border border-white/20 hover:border-white/40 transition-colors"
               >
-                Schedule Protocol
+                Get in Touch
               </a>
             </MagneticButton>
           </div>
